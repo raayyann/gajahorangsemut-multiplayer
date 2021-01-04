@@ -1,0 +1,18 @@
+.rondet {
+  font-size: 900%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 10px;
+  transform: translate(-1000%, -50%);
+  animation: run ease 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes run {
+  20% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, -50%); }
+  100% { transform: translate(-1000%, -50%); }
+}

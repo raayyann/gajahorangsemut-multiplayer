@@ -21,7 +21,10 @@ io.on('connection', socket => {
             waitingPlayer = null;
         }else{
             waitingPlayer = socket;
-            waitingPlayer.emit('message', 'Menunggu lawan');
+            socket.emit('message', 'Menunggu lawan');
+            socket.on('disconnect', () => {
+                waitingPlayer = null;
+            });
         }
     });
 });
