@@ -8,5 +8,5 @@ const orang = document.querySelector('#orang');
 const semut = document.querySelector('#semut');
 
 socket.on('message', msg => {
-    gameLog.textContent(`${gameLog.textContent}<br>${msg}`);
+    gameLog.textContent = msg;
 });

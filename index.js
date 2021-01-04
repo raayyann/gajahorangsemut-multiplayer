@@ -1,13 +1,15 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const io = require('socket.io')();
+const socketio = require('socket.io');
 
 const game = require('./game');
 
 app.use(express.static(__dirname + '/public'));
 
 const server = http.createServer(app);
+
+const io = socketio(server);
 
 let waitingPlayer = null;
 

@@ -2,8 +2,8 @@ class game{
     constructor(p1, p2){
         this.players = [p1, p2];
         this.turns = [null, null];
-        
-        this.sendToPlayers(`Game Dimulai! Kamu adalah player ${p}`);
+
+        this.sendToPlayers(`Game Dimulai! Kamu adalah player`);
     }
 
     sendToPlayer(p, msg){
@@ -30,3 +30,5 @@ class game{
         }
     }
 }
+
+module.exports = game;
