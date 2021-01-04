@@ -2,11 +2,14 @@ const socket = io();
 
 const gameLog = document.querySelector('#game-log');
 
-// Button
-const gajah = document.querySelector('#gajah');
-const orang = document.querySelector('#orang');
-const semut = document.querySelector('#semut');
+['gajah', 'orang', 'semut'].forEach((id) => {
+    const button = document.getElementById(id);
+    button.addEventListener('click', () => {
+        socket.emit('turn', id);
+    });
+});
 
 socket.on('message', msg => {
     gameLog.textContent = msg;
 });
+
