@@ -3,16 +3,21 @@ class game{
         this.players = [p1, p2];
         this.turns = [null, null];
 
-        this.player.forEach((player, idx) => {
-            this.sendToPlayer(idx, `Game Dimulai! Kamu adalah player ${idx}`)
+        this.sendToPlayer(0, `Game Dimulai! Lawanmu adalah ${p2.name}`);
+        this.sendToPlayer(1, `Game Dimulai! Lawanmu adalah ${p1.name}`);
+
+        this.players.forEach((player, idx) => {
             player.on('turn', (turn) => {
                 this.onTurn(idx, turn);
+            });
+            player.on('disconnect', () => {
+                this.sendToPlayers('od');
             });
         });
     }
 
     sendToPlayer(p, msg){
-        this.player[p].emit('message', msg);
+        this.players[p].emit('message', msg);
     }
 
     sendToPlayers(msg){
@@ -31,10 +36,8 @@ class game{
         const turns = this.turns;
 
         if(turns[0] && turns[1]){
-            this.sendToPlayers(`Game Over! Player 1 memilih ${turns[0]}, Player 2 memilih ${turns[1]}`);
             this.getGameResult();
             this.turns = [null, null];
-            this.sendToPlayers('Ronde Selanjutnya');
         }
     }
 
@@ -46,22 +49,24 @@ class game{
 
         switch (distance) {
             case 0:
-            this._sendToPlayers('Seri!');
+                this.sendToPlayers('Seri!');
             break;
 
             case 1:
-            this._sendWinMessage(this._players[0], this._players[1]);
+                this.sendWinMessage(this.players[0], this.players[1]);
             break;
 
             case 2:
-            this._sendWinMessage(this._players[1], this._players[0]);
+                this.sendWinMessage(this.players[1], this.players[0]);
             break;
         }
     }
 
     sendWinMessage(winner, loser) {
-        winner.emit('message', 'Kamu Menang!');
-        loser.emit('message', 'Kamu Kalah!');
+        const players = this.players;
+        const turns = this.turns;
+        winner.emit('message', `${players[0].name} memilih ${turns[0]}, ${players[1].name} memilih ${turns[1]}, Kamu Menang!`);
+        loser.emit('message', `${players[0].name} memilih ${turns[0]}, ${players[1].name} memilih ${turns[1]}, Kamu Kalah!`);
     }
 
     decodeTurn(turn) {

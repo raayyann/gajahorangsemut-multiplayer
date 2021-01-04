@@ -9,7 +9,22 @@ const gameLog = document.querySelector('#game-log');
     });
 });
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let name = urlParams.get('name');
+
+if(!name){
+    name = prompt('Masukan Nama');
+}
+
+
+socket.emit('name', name);
+
 socket.on('message', msg => {
+    if(msg === 'od'){
+        alert('Player lain terputus');
+        window.location.href = `?name=${name}`;
+    }
     gameLog.textContent = msg;
 });
 

@@ -14,13 +14,16 @@ const io = socketio(server);
 let waitingPlayer = null;
 
 io.on('connection', socket => {
-    if(waitingPlayer){
-        new game(waitingPlayer, socket);
-        waitingPlayer = null;
-    }else{
-        waitingPlayer = socket;
-        waitingPlayer.emit('message', 'Menunggu lawan');
-    }
+    socket.on('name', name => {
+        socket.name = name;
+        if(waitingPlayer){
+            new game(waitingPlayer, socket);
+            waitingPlayer = null;
+        }else{
+            waitingPlayer = socket;
+            waitingPlayer.emit('message', 'Menunggu lawan');
+        }
+    });
 });
 
 server.listen(8080, () => {

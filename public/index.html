@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gajah Orang Semut</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <div id="game-log"></div>
-    <button id="gajah">Gajah</button>
-    <button id="orang">Orang</button>
-    <button id="semut">Semut</button>
+<body class="bg-dark">
+    <div class="container mt-5">
+        <div id="game-log" class="alert alert-dark"></div>
+        <button id="gajah" class="btn btn-light">Gajah</button>
+        <button id="orang" class="btn btn-light">Orang</button>
+        <button id="semut" class="btn btn-light">Semut</button>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
